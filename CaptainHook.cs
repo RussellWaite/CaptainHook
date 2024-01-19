@@ -2,9 +2,9 @@ using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 
-namespace Company.Function
+namespace MoreZerosThanOnes.PoC
 {
-    public class FunctionName1
+    public class CaptainHook
     {
         [Function("PostToMe")]
         public async Task<DualWebAndBlobResponse> WriteWebhookBody(
@@ -34,7 +34,7 @@ namespace Company.Function
         [Function("ReadAndClear")]
         public DualWebAndBlobResponse ReadAndClear(
             [HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req,
-            [BlobInput("myfunctionapp9fd8/captain.hook")] string myBlob
+            [BlobInput("webhooktesting/captain.hook")] string myBlob
             )
         {
             var response = req.CreateResponse(HttpStatusCode.OK);
@@ -53,8 +53,8 @@ namespace Company.Function
 
     public class DualWebAndBlobResponse
     {
-        [BlobOutput("myfunctionapp9fd8/captain.hook", Connection = "AzureWebJobsStorage")]
-        public string Contents { get; set; }
-        public HttpResponseData HttpResponse { get; set; }
+        [BlobOutput("webhooktesting/captain.hook", Connection = "AzureWebJobsStorage")]
+        public string? Contents { get; set; }
+        public HttpResponseData? HttpResponse { get; set; }
     }
 }
