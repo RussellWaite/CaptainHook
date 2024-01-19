@@ -13,10 +13,6 @@ env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '8.0.x' # set this to the dotnet version to use
 
-permissions:
-  id-token: write #This is required for requesting the JWT
-  contents: read
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -36,7 +32,6 @@ jobs:
           dotnet build --configuration Release --output ./output
           popd
 
-
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
@@ -44,5 +39,4 @@ jobs:
           app-name: 'TheCaptainHook'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6DBA8B1C9E784574BD453B93E1FD2A5E }}
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A8278B312D8047F58DD667274B878499 }}
